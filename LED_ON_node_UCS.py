@@ -36,5 +36,5 @@ for h in fd:
    adapterID='a' + adapterID
    for entry in a['data']:
       cmd = "" if entry['disk'] in d else "stop"
-      led_cmd = "ssh %s %s -PDLocate %s PhysDrv[%s:%ds] %s" % (h, controller_cmd, cmd, enclosureID, entry['id'], adapterID)
+      led_cmd = "ssh %s %s -PDLocate %s PhysDrv[%s:%s] %s" % (h, controller_cmd, cmd, enclosureID, entry['id'], adapterID)
       opt = os.popen(led_cmd).readlines()
