@@ -35,12 +35,6 @@ for h in fd:
    adapterID=os.popen(cmd).readline().replace(" ","").replace("#","").replace("Adapter","").strip()
    adapterID='a' + adapterID
    for entry in a['data']:
-     if entry['disk'] in d:
-          #Light up LED
-          led_on = "ssh " + h + " " + controller_cmd + " -PDLocate PhysDrv[" + enclosureID + ":" + entry['id'] + "] " + adapterID
-          print 'Turning on LED on Enclosure #' + enclosureID + ' Drive bay #' + entry['id'] + ' on host ' + hostname + ", Logical device: " + d
-          opt = os.popen(led_on).readlines()
-     else:
-          #Turn off LED
-          led_off = "ssh " + h + " " + controller_cmd + " -PDLocate stop PhysDrv[" + enclosureID + ":" + entry['id'] + "] " + adapterID
-          opt = os.popen(led_off).readlines()
+      cmd = "" if entry['disk'] in d else "stop"
+      led_cmd = "ssh %s %s -PDLocate %s PhysDrv[%s:%ds] %s" % (h, controller_cmd, cmd, enclosureID, entry['id'], adapterID)
+      opt = os.popen(led_cmd).readlines()
