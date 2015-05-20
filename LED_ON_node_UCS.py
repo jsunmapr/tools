@@ -24,7 +24,8 @@ fd = os.popen("maprcli alarm list -type NODE |grep faileddisk | awk -F\/ '{print
 for h in fd:
  h=h.strip()
  if h == hostname:
-  cmd = "maprcli disk list -host " + h + " -output terse | grep Failed_disk | awk '{print $5}'"
+  
+  cmd = "maprcli disk list -host " + h + " -json | egrep  'diskname|\"status\":\"[0-9]\"'  | grep -B 2  '\"status\":\"[1-9]\"' | grep diskname | sed 's/\"diskname\":\"//g' | sed 's/\",//g'"
   hd = os.popen(cmd).readlines()
 
   for d in hd:
