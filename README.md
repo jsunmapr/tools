@@ -1,9 +1,9 @@
 Introduction:
 
-This is an utility to be executed on individual data node to turn on UCS disk LED if MapR
+This is an utility to be executed on data node to turn on UCS disk LED if MapR
 detects the disk is sick, possibly before UCS detects it at HW level
 
-Prerequite:
+Prerequisite:
  - LSI MegaCLI utilities (Or StorCLI)
  - All nodes must be able to do passwordless ssh to itself
 
